@@ -5,7 +5,7 @@ import java.net.Socket;
 
 import util.MsqReq;
 import util.MsqResp;
-
+import util.Status;
 
 public class LogicaJogoPve extends Thread {
     private Socket Cliente;
@@ -26,6 +26,12 @@ public void run() {
      //pegando oque o cliente mandou para resolução
 
        MsqReq request = (MsqReq) in.readObject();
+
+            JogoImparPar jogo = new JogoImparPar();
+            Status status = jogo.jogar(request.getValorEscolha());
+
+            MsqResp response = new MsqResp(status);
+            out.writeObject(response);
 
 
 
